@@ -13,10 +13,11 @@ const Editar = (props) => {
   const cancelHandler = () => setShouldRedirect(true);
 
   useEffect(() => {
+    let isMounted = false;
     api
       .get('/laboratory')
       .then((res) => {
-        setLocation(res.data);
+        if (!isMounted) setLocation(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -24,12 +25,16 @@ const Editar = (props) => {
     api
       .get('/equip_category')
       .then((res) => {
-        setCategory(res.data);
+        if (!isMounted) setCategory(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  });
+    return () => {
+      isMounted = true;
+    };
+  }, []);
+
   const submitHandler = async (values) => {
     const newEquip = {
       brand: values.name,

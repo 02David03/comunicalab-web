@@ -10,19 +10,22 @@ const Editar = (props) => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [location, setLocation] = useState([]);
   const cancelHandler = () => setShouldRedirect(true);
-
+  // Aqui é feita a requisição no back-end que será enviada para o Formulario.js como um array de localizações
   useEffect(() => {
+    let isMounted = false;
     api
       .get('/locations')
       .then((res) => {
-        console.log(res);
-        setLocation(res.data);
+        if (!isMounted) setLocation(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  });
-
+    return () => {
+      isMounted = true;
+    };
+  }, []);
+  //Implementação da função Submit que será enviada para Formulario.js
   const submitHandler = async (values) => {
     const newLab = {
       name: values.name,
