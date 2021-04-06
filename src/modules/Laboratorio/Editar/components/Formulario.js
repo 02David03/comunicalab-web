@@ -7,8 +7,8 @@ import PropsType from 'prop-types';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
-    .min(5, 'O nome do Equipamento tem que ser maior que 5 caracteres!')
-    .max(255, 'O nome do Equipamento tem que ser menor que 255 caracteres!')
+    .min(5, 'O nome do laboratorio tem que ser maior que 5 caracteres!')
+    .max(255, 'O nome do laboratorio tem que ser menor que 255 caracteres!')
     .required('Digite o nome do laboratorio!'),
   capacity: Yup.number().required('Digite a capacidade do laboratorio!'),
 });

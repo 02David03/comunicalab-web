@@ -5,16 +5,18 @@ import Error from '../../Editar/components/Error';
 import '../../Editar/components/Formulario';
 import PropsType from 'prop-types';
 
+const validationSchema = Yup.object().shape({
+  marca: Yup.string()
+    .max(255, 'A marca do Equipamento tem que ter menos que 255 caracteres!')
+    .required('Digite a marca do Equipamento!'),
+  category: Yup.string().required('Selecione a categoria do Equipamento!'),
+  localization: Yup.string().required(
+    'Selecione em que laboratorio o equipamento deve estar'
+  ),
+});
 const Formulario = (props) => {
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .max(255, 'A marca do Equipamento tem que ser menor que 255 caracteres!')
-      .required('Digite a marca do Equipamento!'),
-    capacity: Yup.number().required('Digite a categoria do Equipamento!'),
-  });
-
   const formik = useFormik({
-    initialValues: { name: '', category: '', localization: '' },
+    initialValues: { marca: '', category: '', localization: '' },
     validationSchema,
     validateOnMount: true,
     onSubmit: async (values) => {
@@ -31,8 +33,8 @@ const Formulario = (props) => {
           </div>
           <div className="formularioInput">
             <input
-              name="brand"
-              id="brand"
+              name="marca"
+              id="marca"
               placeholder="Marca do Equipamento"
               type="text"
               onChange={formik.handleChange}
@@ -135,7 +137,7 @@ Formulario.propTypes = {
 
 Formulario.defaultProps = {
   initialValues: {
-    name: '',
+    marca: '',
     capacity: '',
     localization: '',
   },
