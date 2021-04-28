@@ -9,20 +9,25 @@ import api from '../../../services/api';
 const Registrar = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [location, setLocation] = useState([]);
-
+  // Aqui acontece a pega dos dados referentes as localizações
   useEffect(() => {
+    let isMounted = false;
     api
       .get('/locations')
       .then((res) => {
-        setLocation(res.data);
+        if (!isMounted) setLocation(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  });
-
+    return () => {
+      isMounted = true;
+    };
+  }, []);
   const cancelHandler = () => setShouldRedirect(true);
+  //função responsavel pelo submit dos dados
   const submitHandler = async (values) => {
+    // Criação de uma variavel newLab que representa o novo laboratorio e suas variaveis(note que a localização não está aqui pois ela não foi implementada no back)
     const newLab = {
       name: values.name,
       capacity: values.capacity
@@ -43,10 +48,11 @@ const Registrar = () => {
       <Toolbar />
       <Menu />
       <Title title="Registrar Laboratório" />
-      <Formulario 
-      onSubmit={submitHandler} 
-      onCancel={cancelHandler}
-      location = {location} />
+      <Formulario
+        onSubmit={submitHandler}
+        onCancel={cancelHandler}
+        location={location}
+      />
     </div>
   );
 };

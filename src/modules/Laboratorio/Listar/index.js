@@ -11,11 +11,15 @@ const Listar = () => {
   const [lab, setLab] = useState([]);
 
   useEffect(() => {
+    let isMounted = false;
     async function fetchData() {
       const res = await api.get('/laboratory');
-      setLab(res.data);
+      if (!isMounted) setLab(await res.data);
     }
     fetchData();
+    return () => {
+      isMounted = true;
+    };
   }, []);
 
   return (

@@ -24,10 +24,14 @@ export default function Routes() {
         <Route path="/Laboratorio/Registrar" component={laboratorioRegistrar} />
         <Route path="/Laboratorio/Listar" component={laboratorioListar} />
         <Route path="/Laboratorio/Editar/:id" component={laboratorioEditar} />
-        <Route path="/Laboratorio/Visualizar/:id" exact component={laboratorioVisualizar} />
-        <Route 
-          path="/Laboratorio/Visualizar/:id/Editar/:id" 
-          component={laboratorioVisualizarEdit} 
+        <Route
+          path="/Laboratorio/Visualizar/:id"
+          exact
+          component={laboratorioVisualizar}
+        />
+        <Route
+          path="/Laboratorio/Visualizar/Editar/:id"
+          component={laboratorioVisualizarEdit}
         />
 
         <Route path="/Equipamento/Registrar" component={equipamentoRegistrar} />
