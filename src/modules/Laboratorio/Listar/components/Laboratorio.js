@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
 import ModalDelete from '../../../../utils/components/ModalDelete';
 import selectionStatus from '../actions/selectionStatus';
-
+import api from '../../../../services/api';
 import '../styles/Laboratorio.css';
 
 function Laboratorio({ lab }) {
@@ -14,6 +14,11 @@ function Laboratorio({ lab }) {
 
   function showModal() {
     setShow(!show);
+  }
+
+  function onDelete() {
+    api.delete(`laboratory/${lab.id}`);
+    setShow(false);
   }
 
   function isLabInUse(lab) {
@@ -79,10 +84,9 @@ function Laboratorio({ lab }) {
       </ul>
       <ModalDelete
         title="Excluir Laboratório?"
-        onClose={showModal}
         show={show}
-        name={lab.name}
-        id = {lab.id}
+        onClose={showModal}
+        onConfirm = {onDelete}
       >
         Tem certeza que deseja excluir permanentemente este laboratório?
       </ModalDelete>

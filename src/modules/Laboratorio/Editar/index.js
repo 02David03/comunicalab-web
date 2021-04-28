@@ -15,7 +15,6 @@ const Editar = (props) => {
     api
       .get('/locations')
       .then((res) => {
-        console.log(res);
         setLocation(res.data);
       })
       .catch((err) => {

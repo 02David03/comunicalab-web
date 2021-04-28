@@ -8,12 +8,12 @@ import api from '../../../services/api';
 import './styles/index.css';
 
 const Listar = () => {
-  const [state, setState] = useState([]);
+  const [lab, setLab] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const res = await api.get('/laboratory');
-      setState(await res.data);
+      setLab(res.data);
     }
     fetchData();
   }, []);
@@ -25,7 +25,7 @@ const Listar = () => {
       <Title title="Listar Laboratórios" />
       <div className="listaLaboratorios">
         <ul>
-          {state.map((item) => (
+          {lab.map((item) => (
             <li key={item.id}>
               <Laboratorio lab={item} />
             </li>

@@ -7,6 +7,7 @@ import ModalDelete from '../../../../utils/components/ModalDelete';
 import selectionStatus from '../actions/selectionStatus.js';
 import computerImg from '../../../../assets/computador.jpg'
 import '../styles/equipment.css';
+import api from '../../../../services/api';
 
 function Equipment(props) {
   const statusCor = selectionStatus(false);
@@ -14,6 +15,11 @@ function Equipment(props) {
 
   function showModal() {
     setShow(!show);
+  }
+
+  function onDelete() {
+    api.delete(`/equipment/${props.eqp.id}`);
+    setShow(false);
   }
 
   return (
@@ -71,9 +77,8 @@ function Equipment(props) {
       <ModalDelete
         title="Excluir Equipamento?"
         onClose={showModal}
+        onConfirm = {onDelete}
         show={show}
-        name={props.eqp.brand}
-        id = {props.eqp.id}
       >
         Tem certeza que deseja excluir permanentemente este Equipamento?
       </ModalDelete>

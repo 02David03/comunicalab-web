@@ -7,7 +7,7 @@ import Equipamento from './components/equipment';
 import api from '../../../services/api';
 
 const Listar = (props) => {
-  const [state, setState] = useState([]);
+  const [lab, setLab] = useState([]);
 
   const filterData = useCallback(
     (res) => {
@@ -26,8 +26,8 @@ const Listar = (props) => {
   useEffect(() => {
     async function fetchData() {
       const res = await api.get('/equipment');
-      const data = filterData(await res.data);
-      setState(data);
+      const data = filterData(res.data);
+      setLab(data);
     }
     fetchData();
   }, [filterData]);
@@ -39,9 +39,11 @@ const Listar = (props) => {
       <Title title="Listagem de Equipamentos" />
       <div className="listaEquipamentos">
         <ul>
-          {state.map((item) => (
+          {lab.map((item) => (
             <li key={item.id}>
-              <Equipamento eqp={item} path={window.location.pathname} />
+              <Equipamento 
+              eqp={item} 
+              path={window.location.pathname} />
             </li>
           ))}
         </ul>

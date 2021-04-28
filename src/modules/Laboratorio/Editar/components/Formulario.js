@@ -92,7 +92,7 @@ const Formulario = (props) => {
                 Escolha a localização
               </option>
               {props.location.map((item) => (
-                <option value={item.building} id={item.id}>
+                <option value={item.building} key={item.id}>
                   {item.building} {item.floor}
                 </option>
               ))}

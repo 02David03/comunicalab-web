@@ -69,31 +69,27 @@ const Formulario = (props) => {
               <p>Localização:</p>
             </div>
             <div className="formularioSelect">
-              <select
-                name="localization"
-                id="localization"
-                onChange={formik.handleChange}
-                defaultValue={formik.values.localization}
-                onBlur={formik.handleBlur}
-                className={
+            <select
+              name="localization"
+              id="localization"
+              onChange={formik.handleChange}
+              defaultValue={formik.values.localization}
+              onBlur={formik.handleBlur}
+              className={
                 formik.touched.localization && formik.errors.localization
                   ? 'has-error'
                   : null
-                }
-              >
-                <option value="" disabled>
-                  Escolha a localização
+              }
+            >
+              <option value="" disabled>
+                Escolha a localização
+              </option>
+              {props.location.map((item) => (
+                <option value={item.building} key={item.id}>
+                  {item.building} {item.floor}
                 </option>
-                <option value="2" id="2">
-                    2
-                </option>
-                <option value="3" id="3">
-                  3
-                </option>
-                <option value="4" id="4">
-                  4
-                </option>
-              </select>
+              ))}
+            </select>
             </div>
             <Error
               touched={formik.touched.localization}
@@ -117,6 +113,7 @@ const Formulario = (props) => {
 
 Formulario.propTypes = {
   initialValues: PropsType.object,
+  location: PropsType.array.isRequired,
   onSubmit: PropsType.func.isRequired,
   onCancel: PropsType.func.isRequired
   }
